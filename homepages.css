@@ -1,0 +1,426 @@
+body {
+    background-color: rgb(204, 211, 236);
+}
+
+#head {
+    display: flex;         
+    align-items: center;    
+    justify-content: center; 
+    width: 100%;
+    background-color: darkblue;
+    color: white;
+    padding: 30px 30px;   
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+#head p{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#head img {
+    width: 50px;
+    height: 45px; 
+    float: left;
+}
+
+#drop-down {
+    background-color: transparent;
+    border: 0;
+    position: absolute;
+    left: 45px;
+    cursor: pointer;
+}
+
+
+#sidebar {
+  width: 250px;
+  height: 100%;
+  position: fixed; /* Or absolute */
+  left: -250px; /* Off-screen */
+  top: 0;
+  background-color: rgba(0, 0, 139, 0.456);
+  color: white;
+  transition: left 0.3s ease; /* Smooth transition */
+  overflow-x: hidden; /* Prevents horizontal scroll */
+}
+
+#mainnav {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50%;
+    font-family:'Times New Roman', Times, serif;
+}
+
+.link{
+    padding-bottom: 30px;
+    a {
+        text-decoration:none;
+        color: white;
+    }
+    a:hover {
+        scroll-behavior: smooth;
+        color: var(--third);
+        transform: translate(0px, -2px);
+        transition: transform 0.2s ease-in-out;
+        cursor: pointer;
+    }
+    a:visited {
+        color: white;
+    }
+}
+
+#drop-down {
+  position: fixed;
+  z-index: 10; /* Above sidebar */
+  top: 20px;
+  left: 0; /* Start at edge */
+  cursor: pointer;
+}
+
+#sidebar:hover, #drop-down:hover ~ #sidebar { 
+  left: 0; /* Slide in */
+}
+
+#teacher-greeting {
+    margin-top: 100px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    color: rgb(0, 0, 139);
+    text-align: center;
+    font-size: 75px;
+    font-style: bold;
+}
+
+#classes {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: rgba(85, 48, 171, 0.615);
+    text-align: center;
+    font-size: 50px;
+    font-style: italic;
+    margin-top: -35px;
+}
+
+hr {
+    width: 40%;
+    background-color: rgb(88, 88, 88);
+    height: 0.8px;
+    border: none;
+}
+
+#class-creator {
+    text-align: center;
+}
+
+#create {
+    font-family:'Times New Roman', Times, serif;
+    text-align: center; 
+    color: whitesmoke;
+    text-shadow: 4px 2px 5px rgb(136, 136, 218);
+}
+
+#new-class-name {
+    font-family:'Times New Roman', Times, serif;
+    border-radius: 8px;
+    height: 20px;
+    border: 1.5px solid rgb(0, 0, 160);
+    text-align: center;
+}
+
+#new-class-teacher {
+    font-family:'Times New Roman', Times, serif;
+    border-radius: 8px;
+    height: 20px;
+    border: 1.5px solid rgb(0, 0, 160);
+    text-align: center;
+}
+
+#new-class-period {
+    font-family:'Times New Roman', Times, serif;
+    border-radius: 8px;
+    height: 20px;
+    border: 1.5px solid rgb(0, 0, 160);
+    text-align: center;
+}
+
+#button {
+    font-family:'Times New Roman', Times, serif;
+    border-radius: 8px;
+    height: 25px;
+    border: 1.5px solid rgb(0, 0, 160);
+    text-align: center;
+    background-color: rgba(192, 192, 250, 0.762);
+    font-style: bold;
+}
+
+button:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer; 
+}
+
+#button-container {
+    text-align: center;
+}
+
+#button-container button {
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 15px;
+    font-family:'Times New Roman', Times, serif;
+    border-radius: 8px;
+    border: 1.5px solid rgb(0, 0, 160);
+    font-style: bold;
+    background-color: white;
+    color: rgb(85, 82, 82);
+}
+
+.class-card {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+}
+
+.delete-btn {
+    position: absolute;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ff4d4d;
+    color: white;
+    top: -10px;
+    right: -10px;
+}
+
+.delete-btn:hover {
+    transform: scale(1.1);
+}
+
+.class-card:hover {
+   transform: scale(1.1);
+   cursor:pointer;
+}
+
+#go-back {
+    color: white; 
+    text-decoration: none;
+    font-size: 18px;
+}
+
+#head {
+    float: left;
+}
+
+#main {
+    margin-top: 150px; 
+    text-align: center;
+}
+
+.profile-container {
+    background: white;
+    width: 50%;
+    margin: 0 auto;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+#image-preview-wrapper {
+    margin-bottom: 20px;
+    width: 150px; 
+    height: 150px; 
+    border-radius: 50%; 
+    border: 3px solid darkblue; 
+    object-fit: cover;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#teacher-details p {
+    font-size: 18px;
+    color: #333;
+}
+
+#account-title {
+    margin: 0 auto;      
+    font-family: 'Times New Roman', Times, serif;
+    letter-spacing: 2px;
+    font-size: 20px;
+    text-align: center;        
+}
+
+#main-profile {
+    margin-top: 150px;
+}
+
+#profile-pic-display {
+    width: 150px;           /* Fixed width */
+    height: 150px;          /* Fixed height */
+    border-radius: 50%;     /* Makes it a circle */
+    object-fit: cover;      /* Crops the image to fit without stretching */
+    object-position: center; /* Ensures the middle of the photo is visible */
+    display: block;
+    margin: 0 auto;         /* Centers the circle on the page */
+}
+
+#image-upload {
+    display: none;
+}
+
+[contenteditable="true"] {
+    border-bottom: 1px dashed darkblue;
+    padding: 0 5px;
+    cursor: text;
+}
+
+[contenteditable="true"]:focus {
+    outline: none;
+    background-color: #f0f4ff;
+    border-bottom: 2px solid darkblue;
+}
+
+#clear-button {
+    font-family:'Times New Roman', Times, serif;
+    border-radius: 8px;
+    height: 25px;
+    border: 1.5px solid rgb(151, 0, 0);
+    text-align: center;
+    background-color: rgb(253, 149, 149);
+    font-style: bold;
+    float: right;
+}
+
+#save-button {
+    font-family:'Times New Roman', Times, serif;
+    border-radius: 8px;
+    height: 25px;
+    border: 1.5px solid rgb(0, 0, 160);
+    text-align: center;
+    background-color: rgba(192, 192, 250, 0.762);
+    font-style: bold;
+    float: left;
+}
+
+#my-buttons {
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.action-button {
+    background-color: darkblue; /* Matches header background */
+    color: rgb(192, 192, 250);
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    font-family:'Times New Roman', Times, serif;
+    margin-bottom: 50px;
+}
+
+.action-button:hover {
+    transform: scale(1.05);
+}
+
+#annotation-buttons {
+   margin-top: 60px;
+   text-align: center; 
+}
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.5); 
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 30px;
+    border-radius: 15px;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.close-btn {
+    float: right;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+#doc-name-input {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#pages-container .class-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+#pages-container .class-button {
+    background: transparent;
+    color: #004080;
+    padding: 15px;
+    font-size: medium;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    font-family:'Times New Roman', Times, serif;
+}
+
+#pages-container .delete-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    top: -10px;
+    right: -10px;
+}
+
+#saved-pages-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    width: 100%;
+}
+#pages-container {
+    flex-wrap: wrap;      
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    margin: 0 auto; 
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}     
+
+
+#pages-container .class-card {
+    position: relative;
+    width: 220px;         
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f4f8; 
+    border: 2px solid #004080;
+    border-radius: 8px;
+    transition: transform 0.2s;
+}

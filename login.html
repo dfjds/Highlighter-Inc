@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login</title>
+  <link rel="stylesheet" href="login.css"/>
+</head>
+<body>
+  <div class="login-container">
+    <img src="logo.png" class="logo" alt="JLA Logo">
+    <h2 style="color: #E04A00;">Login</h2>
+    <label for="email">Username:</label>
+    <input type="email" id="email" placeholder="Enter your email">
+    <label for="password">Password:</label>
+    <input type="password" id="password" placeholder="Enter your password">
+    <button onclick="login()">Login</button>
+    <p><a href="#" onclick="forgotPassword()" class="forgot-link">Forgot Password?</a></p>
+    <p id="errorMessage" class="error"></p>
+  </div>
+
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbyUXwHoz03U8-appvVJpi7ugtlGuXKEkzmSFHABARfaAdQzkxJqQ4eUKX_aR5EA6RAW/exec";
+    async function login() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      body: new URLSearchParams({
+        action: "login",
+        email,
+        password
+      })
+    });
+
+    // If the response is not ok, it won't proceed to the next step
+    if (!res.ok) {
+      throw new Error("Network response was not ok.");
+    }
+
+    const data = await res.json();  // Parse JSON response
+
+    if (!data.success) {
+      document.getElementById("errorMessage").textContent = data.message || "Unknown error occurred.";
+    } else if (data.firstLogin) {
+      localStorage.setItem("email", email);
+      window.location.href = "change-password.html";
+    }
+    else if (email.includes("@jlamiami.org")){
+      localStorage.setItem("loggedInEmail", email);
+      window.location.href = "teacherhome.html";
+    } 
+    else if (email.includes("@jlastudents.org")){
+      localStorage.setItem("loggedInEmail", email);
+      window.location.href = "studenthome.html";
+    } 
+    else {
+      localStorage.setItem("loggedInEmail", email);
+      window.location.href = "logabsence.html";
+    }
+
+  } catch (error) {
+    // Handle errors such as failed JSON parsing or network issues
+    document.getElementById("errorMessage").textContent = `Error: ${error.message}`;
+    console.error("Login failed: ", error);
+  }
+}
+
+
+    async function forgotPassword() {
+      const email = document.getElementById("email").value;
+      if (!email) return alert("Please enter your email to reset password.");
+
+      await fetch(API_URL, {
+        method: "POST",
+        body: new URLSearchParams({
+          action: "requestReset",
+          email
+        })
+      });
+
+      alert("If this email exists, a reset link has been sent.");
+    }
+  </script>
+</body>
+</html>

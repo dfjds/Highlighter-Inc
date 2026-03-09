@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Highlighter Inc. - Multi-Doc</title>
+    <link rel="stylesheet" href="english.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script src="https://unpkg.com/mammoth@1.8.0/mammoth.browser.min.js"></script>
+</head>
+<body>
+<div id="workspace-header">
+     <div id="head">
+        <a id="go-back" href="classview.html"> ← Back to Class</a>
+    </div>
+    
+    <h2 id="current-workspace-title" style="margin: 0; font-family: serif;">Highlighter Workspace</h2>
+    <div style="width: 100px;"></div> 
+</div>
+
+<div id="main-content">
+    <div id="file-tabs" class="file-tabs"></div>
+
+    <div id="upload-panel" class="upload-panel" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)" ondragleave="dragLeaveHandler(event)">
+        <h2>Upload a Document</h2>
+        <div id="drop-zone">
+            <p>Drag & Drop files here or <strong>Click to Upload</strong></p>
+        </div>
+    </div>
+
+    <div id="document-viewer" class="hidden">
+        <h1 id="doc-title">Select or Upload a Document</h1>
+        <div id="text-container" onmouseup="handleSelection()">
+            <p class="empty-state">Your document text will appear here.</p>
+        </div>
+    </div>
+
+
+    <input type="file" id="pdf-upload" hidden onchange="fileInputHandler(event)" multiple />
+</div>
+
+<div id="sidebar">
+    <div id="comment-area"> <p class="empty-state">Highlight text to comment.</p>
+    </div>
+</div>
+
+<script src="index.js"></script>
+</body>
+</html>

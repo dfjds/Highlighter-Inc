@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Class</title>
+    <link rel="stylesheet" href="homepages.css"/>
+</head>
+<body>
+    <div id="head">
+        <a id="go-back" href="teacherhome.html"> ← Back</a>
+    </div>
+
+    <main id="main">
+        <h1 id="display-class-name">Class Name</h1>
+        <h3 id="display-class-info">Teacher & Period Info</h3>
+        <hr>
+    </main>
+
+    <div id="annotation-buttons">
+        <button id="open-workspace-btn" class="action-button">
+            Create New Annotation
+        </button>
+    </div>
+</div>
+
+<div id="saved-pages-section" style="margin-top: 40px; text-align: center;">
+    <h2 style="font-family: serif; color: darkblue;">Class Documents</h2>
+    <hr style="width:30%">
+    <div id="pages-container">
+    </div>
+</div>
+
+<div id="docModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>Create Page</h2>
+        <p>Enter a name for this document:</p>
+        <input type="text" id="doc-name-input" placeholder="e.g., Midterm Essay - Period 1">
+        <br><br>
+        <button id="confirm-create-btn" class="action-button">Launch Annotation Assignment</button>
+    </div>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const className = params.get('name');
+const period = params.get('period');
+const teacher = params.get('teacher');
+
+document.addEventListener("DOMContentLoaded", () => {
+    if (className) {
+        document.getElementById('display-class-name').textContent = className;
+        document.title = className; // Updates the browser tab name
+    }
+    if (teacher && period) {
+        document.getElementById('display-class-info').textContent = `${teacher} — Period ${period}`;
+    }
+});
+
+const modal = document.getElementById("docModal");
+const openBtn = document.getElementById("open-workspace-btn"); 
+const closeBtn = document.querySelector(".close-btn");
+
+openBtn.onclick = () => {
+    modal.style.display = "block";
+};
+
+closeBtn.onclick = () => {
+    modal.style.display = "none";
+};
+
+window.onclick = (event) => {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+};
+
+function displaySavedPages() {
+    const period = params.get('period');
+    const teacher = params.get('teacher');
+    const container = document.getElementById('pages-container');
+    if (!container) return; 
+    
+    const pagesKey = `pages_${className}`;
+    const savedPages = JSON.parse(localStorage.getItem(pagesKey)) || [];
+    
+    container.innerHTML = "";
+    savedPages.forEach((docName, index) => {
+        const docDiv = document.createElement('div');
+        docDiv.className = 'class-card'; 
+        
+        const btn = document.createElement('button');
+        btn.className = 'class-button';
+        btn.innerHTML = `<strong>${docName}</strong>`;
+        btn.onclick = () => {
+            window.location.href = `index.html?docTitle=${encodeURIComponent(docName)}&className=${encodeURIComponent(className)}&period=${encodeURIComponent(period)}&teacher=${encodeURIComponent(teacher)}`;   
+        };
+
+        const delBtn = document.createElement('button');
+        delBtn.className = 'delete-btn';
+        delBtn.textContent = "×";
+        delBtn.onclick = (e) => {
+            e.stopPropagation();
+            removePage(index);
+        };
+
+        docDiv.appendChild(btn);
+        docDiv.appendChild(delBtn);
+        container.appendChild(docDiv);
+    });
+}
+
+function removePage(index) {
+    const pagesKey = `pages_${className}`;
+    let savedPages = JSON.parse(localStorage.getItem(pagesKey)) || [];
+    if(confirm("Delete this annotation page permanently?")) {
+        savedPages.splice(index, 1);
+        localStorage.setItem(pagesKey, JSON.stringify(savedPages));
+        displaySavedPages();
+    }
+}
+
+document.getElementById("confirm-create-btn").onclick = () => {
+    const docInput = document.getElementById("doc-name-input");
+    const docName = docInput.value.trim();
+    
+    if (docName !== "") {
+        const pagesKey = `pages_${className}`;
+        let savedPages = JSON.parse(localStorage.getItem(pagesKey)) || [];
+        
+        savedPages.push(docName);
+        localStorage.setItem(pagesKey, JSON.stringify(savedPages));
+        
+        window.location.href = `index.html?docTitle=${encodeURIComponent(docName)}&className=${encodeURIComponent(className)}&period=${encodeURIComponent(period)}&teacher=${encodeURIComponent(teacher)}`;  
+    } else {
+        alert("Please enter a document name.");
+    }
+};
+displaySavedPages();
+</script>
+
+</body>
+</html>

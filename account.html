@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account</title>
+    <link rel="stylesheet" href="homepages.css"/>
+</head>
+<body>
+    <header>
+        <div id="head"> 
+            <p id="account-title"> Teacher Account </p>
+            <button id="drop-down"> <img src="wafflebar.png"> </button> 
+            <div id="sidebar">
+                <nav id="mainnav"> 
+                    <div class = "link"> <a href="account.html"> Account </a> </div>
+                    <br>
+                    <div class = "link"> <a href="teacherhome.html"> Teacher Home </a> </div>
+                    <br>
+                </nav> 
+            </div>
+        </div>
+    </header>
+
+    <main id ="main-profile">
+        <div class="profile-container">
+            <div id="image-preview-wrapper">
+            <img id="profile-pic-display" src="placeholder-user.jpg" alt="Profile Picture">
+            </div>
+
+            <br>
+            <input type="file" id="image-upload" accept="image/*">
+            <button id="button" onclick="document.getElementById('image-upload').click()">Upload Profile Picture</button>
+
+            <hr style="margin: 30px auto; width: 55%; background-color: rgb(88, 88, 88);">
+
+            <div id="teacher-details">
+                <h2 id="display-full-name">Teacher Name</h2>
+                <p><strong>Email:</strong> <span id="display-email">Loading...</span></p>
+                <p><strong>First Name:</strong> <span id="display-first" contenteditable="true">Loading...</span></p>
+                <p><strong>Last Name:</strong> <span id="display-last" contenteditable="true">Loading...</span></p>
+            </div>
+            <div id="my-buttons">
+            <button id="save-button" onclick="saveProfileChanges()">Save Profile Details</button>
+            <button id="clear-button" onclick="clearAllData()">Clear All My Data</button>
+            </div>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+        const currentEmail = localStorage.getItem("loggedInEmail"); //
+        const profileDisplay = document.getElementById('profile-pic-display');
+        const imageUpload = document.getElementById('image-upload');
+
+    if (currentEmail) {
+        const savedImage = localStorage.getItem(`${currentEmail.toLowerCase()}-profilePic`);
+        if (savedImage) {
+            profileDisplay.src = savedImage;
+        }
+
+        imageUpload.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const base64Image = event.target.result;
+                    
+                    profileDisplay.src = base64Image;
+                    
+                    localStorage.setItem(`${currentEmail.toLowerCase()}-profilePic`, base64Image);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+const savedFirst = localStorage.getItem("firstName");
+    const savedLast = localStorage.getItem("lastName");
+
+    if (savedFirst) document.getElementById("display-first").innerText = savedFirst;
+    if (savedLast) document.getElementById("display-last").innerText = savedLast;
+});
+
+function saveProfileChanges() {
+    const firstName = document.getElementById("display-first").innerText.trim();
+    const lastName = document.getElementById("display-last").innerText.trim();
+    
+    localStorage.setItem("firstName", firstName);
+    localStorage.setItem("lastName", lastName);
+
+    alert("Profile saved! Your name will now show on your annotations.");
+}
+
+    </script>
+
+<script src="english.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Highlighter Inc.</title>
+    <link rel="stylesheet" href="homepages.css"/>
+</head>
+<body>
+<main>
+    <header>
+        <div id="head" style="padding-bottom: 50px;"> 
+            <button id="drop-down"> <img src="wafflebar.png"> </button> 
+            <div id="sidebar">
+                <nav id="mainnav"> 
+                    <div class = "link"> <a href="account.html"> Account </a> </div>
+                    <br>
+                    <div class = "link"> <a href="teacherhome.html"> Teacher Home </a> </div>
+                    <br>
+                </nav> 
+            </div>
+        </div>
+    </header>
+    <br> 
+    <p id="teacher-greeting"> Welcome Teacher! </p>
+    <p id="classes"> Your Classes: </p>
+    <hr>
+    <div id="class-creator">
+    <h3 id="create">Create a New Class</h3>
+    <input type="text" id="new-class-name" placeholder="Class Name">
+    <input type="text" id="new-class-teacher" placeholder="Teacher Name">
+    <input type="number" id="new-class-period" placeholder="Period">
+    <br>
+    <br>
+    <button id="button" onclick="saveNewClass()">Create Class Button</button>
+</div>
+<br>
+<br>
+<hr>
+<h3 id="create">Your Classes</h3>
+<div id="button-container">
+</div>
+
+</main>
+<script src="english.js"> </script>
+</body>
+</html>
