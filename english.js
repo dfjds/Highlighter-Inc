@@ -1,3 +1,8 @@
+const loggedInEmail = localStorage.getItem("loggedInEmail");
+if (!loggedInEmail) {
+    window.location.replace("login.html");
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const teacherData = [
         // Source 1
