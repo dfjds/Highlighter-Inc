@@ -62,6 +62,30 @@ button:hover {
   background-color: #16224d;
 }
 
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 0;
+  color: #6b6b6b;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e6e6e6;
+}
+
+.g_id_signin {
+  display: flex;
+  justify-content: center;
+}
+
 .forgot-link {
   color: #1E2D60;
   font-size: 14px;

@@ -14,10 +14,24 @@
     <label for="password">Password:</label>
     <input type="password" id="password" placeholder="Enter your password">
     <button onclick="login()">Login</button>
+    <div class="divider"><span>or</span></div>
+    <div id="g_id_onload"
+         data-client_id="YOUR_GOOGLE_CLIENT_ID"
+         data-callback="handleCredentialResponse"
+         data-auto_select="false"
+         data-cancel_on_tap_outside="true"></div>
+    <div class="g_id_signin"
+         data-type="standard"
+         data-size="large"
+         data-theme="outline"
+         data-text="continue_with"
+         data-shape="rectangular"
+         data-logo_alignment="left"></div>
     <p><a href="#" onclick="forgotPassword()" class="forgot-link">Forgot Password?</a></p>
     <p id="errorMessage" class="error"></p>
   </div>
 
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbyUXwHoz03U8-appvVJpi7ugtlGuXKEkzmSFHABARfaAdQzkxJqQ4eUKX_aR5EA6RAW/exec";
     async function login() {
@@ -64,8 +78,8 @@
     // Handle errors such as failed JSON parsing or network issues
     document.getElementById("errorMessage").textContent = `Error: ${error.message}`;
     console.error("Login failed: ", error);
+    }
   }
-}
 
 
     async function forgotPassword() {
@@ -81,6 +95,43 @@
       });
 
       alert("If this email exists, a reset link has been sent.");
+    }
+
+    function handleCredentialResponse(response) {
+      const data = decodeJwt(response.credential);
+      const email = data && data.email ? data.email : "";
+
+      if (!email) {
+        document.getElementById("errorMessage").textContent = "Google sign-in failed: email not available.";
+        return;
+      }
+
+      localStorage.setItem("loggedInEmail", email);
+
+      if (email.includes("@jlamiami.org")) {
+        window.location.href = "teacherhome.html";
+      } else if (email.includes("@jlastudents.org")) {
+        window.location.href = "studenthome.html";
+      } else {
+        window.location.href = "logabsence.html";
+      }
+    }
+
+    function decodeJwt(token) {
+      try {
+        const payload = token.split(".")[1];
+        const base64 = payload.replace(/-/g, "+").replace(/_/g, "/");
+        const json = decodeURIComponent(
+          atob(base64)
+            .split("")
+            .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+            .join("")
+        );
+        return JSON.parse(json);
+      } catch (e) {
+        console.error("Failed to decode Google credential", e);
+        return null;
+      }
     }
   </script>
 </body>
