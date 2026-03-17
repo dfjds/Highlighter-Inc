@@ -104,6 +104,47 @@ body {
     margin-top: -35px;
 }
 
+#leaderboard-section {
+    width: min(700px, 90%);
+    margin: 20px auto 40px;
+    background: white;
+    border-radius: 14px;
+    padding: 24px 28px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+#leaderboard-title {
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    color: rgb(0, 0, 139);
+    margin: 0 0 6px;
+}
+
+#leaderboard-subtitle {
+    text-align: center;
+    color: #5d5d5d;
+    margin: 0 0 16px;
+    font-style: italic;
+}
+
+#leaderboard-list {
+    margin: 0;
+    padding-left: 24px;
+    font-family: 'Times New Roman', Times, serif;
+    color: #1d1d1d;
+}
+
+#leaderboard-list li {
+    padding: 6px 0;
+    font-size: 18px;
+}
+
+.leaderboard-empty {
+    text-align: center;
+    color: #6b6b6b;
+    margin: 0;
+}
+
 hr {
     width: 40%;
     background-color: rgb(88, 88, 88);
