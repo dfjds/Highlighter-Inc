@@ -74,7 +74,7 @@ dropZone.onclick = () => fileInput.click();
 document.addEventListener('dragenter', (e) => {
     if (!isFileDrag(e)) return;
     e.preventDefault();
-    if (library.length > 0) dragOverlay.classList.add('visible');
+    if (library.length > 0 && dragOverlay) dragOverlay.classList.add('visible');
 });
 
 document.addEventListener('dragover', (e) => {
@@ -85,7 +85,7 @@ document.addEventListener('dragover', (e) => {
 document.addEventListener('drop', (e) => {
     if (!isFileDrag(e)) return;
     e.preventDefault();
-    dragOverlay.classList.remove('visible');
+    if (dragOverlay) dragOverlay.classList.remove('visible');
 });
 
 function isFileDrag(e) {
@@ -104,7 +104,7 @@ function dragLeaveHandler() {
 }
 
 function overlayLeaveHandler(e) {
-    if (e.target === dragOverlay) {
+    if (dragOverlay && e.target === dragOverlay) {
         dragOverlay.classList.remove('visible');
     }
 }
@@ -112,7 +112,7 @@ function overlayLeaveHandler(e) {
 function dropHandler(e) {
     e.preventDefault();
     dragLeaveHandler();
-    dragOverlay.classList.remove('visible');
+    if (dragOverlay) dragOverlay.classList.remove('visible');
     processFiles(e.dataTransfer.files);
 }
 
@@ -420,7 +420,7 @@ function renderComments() {
         const isNew = !comment.text || comment.text.trim() === "";
 
         div.innerHTML = `
-            <div class="comment-main" onclick="selectComment('${comment.id}')">
+            <div class="comment-main" onclick="selectComment('${comment.id}', event)">
                 <div class="comment-quote">"${comment.quote}"</div>
                 <strong>${comment.author}</strong> <small>${comment.timestamp}</small>
                 
@@ -452,6 +452,10 @@ function renderComments() {
             </div>
         `;
         container.appendChild(div);
+    });
+
+    container.querySelectorAll('.comment-input').forEach((input) => {
+        input.addEventListener('mousedown', (e) => e.stopPropagation());
     });
 }
 
@@ -488,7 +492,13 @@ function saveInitialComment(id) {
     }
 }
 
-function selectComment(id) {
+function selectComment(id, event) {
+    if (event) {
+        const tag = event.target && event.target.tagName;
+        if (tag === 'TEXTAREA' || tag === 'INPUT' || tag === 'BUTTON') {
+            return;
+        }
+    }
     activeCommentId = id;
     syncActiveHighlight();
     renderComments();
