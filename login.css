@@ -28,6 +28,12 @@ h2 {
   margin-bottom: 20px;
 }
 
+.login-instructions {
+  margin: -8px 0 16px;
+  font-size: 13px;
+  color: #555;
+}
+
 label {
   display: block;
   text-align: left;

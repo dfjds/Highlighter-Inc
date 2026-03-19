@@ -130,9 +130,15 @@ function getTeacherStorageKey() {
     return currentEmail ? `${currentEmail.toLowerCase()}-classes` : null;
 }
 
+function getLoggedInTeacherName() {
+    const first = (localStorage.getItem("firstName") || "").trim();
+    const last = (localStorage.getItem("lastName") || "").trim();
+    const fullName = `${first} ${last}`.trim();
+    return fullName || localStorage.getItem("loggedInEmail") || "Teacher";
+}
+
 function saveNewClass() {
     const className = document.getElementById("new-class-name").value;
-    const teacherName = document.getElementById("new-class-teacher").value;
     const period = document.getElementById("new-class-period").value;
     const storageKey = getTeacherStorageKey();
 
@@ -141,12 +147,12 @@ function saveNewClass() {
         return;
     }
 
-    if (!className || !teacherName || !period) {
+    if (!className || !period) {
         alert("Please fill in all fields");
         return;
     }
 
-    const classObject = { className, teacherName, period };
+    const classObject = { className, teacherName: getLoggedInTeacherName(), period };
 
     let classes = JSON.parse(localStorage.getItem(storageKey)) || [];
     classes.push(classObject);
@@ -154,7 +160,6 @@ function saveNewClass() {
     localStorage.setItem(storageKey, JSON.stringify(classes));
 
     document.getElementById("new-class-name").value = "";
-    document.getElementById("new-class-teacher").value = "";
     document.getElementById("new-class-period").value = "";
     
     displayClasses();

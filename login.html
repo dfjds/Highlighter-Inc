@@ -9,6 +9,7 @@
   <div class="login-container">
     <img src="logo.png" class="logo" alt="JLA Logo">
     <h2 style="color: #E04A00;">Login</h2>
+    <p class="login-instructions">Use your school email and password, then click Login.</p>
     <label for="email">Username:</label>
     <input type="email" id="email" placeholder="Enter your email">
     <label for="password">Password:</label>
@@ -49,7 +50,7 @@
     }
     else if (email.includes("@jlamiami.org")){
       localStorage.setItem("loggedInEmail", email);
-      window.location.href = "teacherhome.html";
+      window.location.href = "index.html";
     } 
     else if (email.includes("@jlastudents.org")){
       localStorage.setItem("loggedInEmail", email);
