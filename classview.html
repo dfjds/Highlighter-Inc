@@ -94,7 +94,7 @@ function displaySavedPages() {
         btn.className = 'class-button';
         btn.innerHTML = `<strong>${docName}</strong>`;
         btn.onclick = () => {
-            window.location.href = `index.html?docTitle=${encodeURIComponent(docName)}&className=${encodeURIComponent(className)}&period=${encodeURIComponent(period)}&teacher=${encodeURIComponent(teacher)}`;   
+            window.location.href = `teacher-upload-view.html?docTitle=${encodeURIComponent(docName)}&className=${encodeURIComponent(className)}&period=${encodeURIComponent(period)}&teacher=${encodeURIComponent(teacher)}`;   
         };
 
         const delBtn = document.createElement('button');
@@ -132,7 +132,7 @@ document.getElementById("confirm-create-btn").onclick = () => {
         savedPages.push(docName);
         localStorage.setItem(pagesKey, JSON.stringify(savedPages));
         
-        window.location.href = `index.html?docTitle=${encodeURIComponent(docName)}&className=${encodeURIComponent(className)}&period=${encodeURIComponent(period)}&teacher=${encodeURIComponent(teacher)}`;  
+        window.location.href = `teacher-upload-view.html?docTitle=${encodeURIComponent(docName)}&className=${encodeURIComponent(className)}&period=${encodeURIComponent(period)}&teacher=${encodeURIComponent(teacher)}`;  
     } else {
         alert("Please enter a document name.");
     }
