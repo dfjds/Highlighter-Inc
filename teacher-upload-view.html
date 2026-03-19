@@ -27,6 +27,10 @@
         </div>
     </div>
 
+    <div id="drag-upload-overlay" ondragleave="overlayLeaveHandler(event)">
+        <div class="overlay-content">Drop files to add them</div>
+    </div>
+
     <div id="document-viewer" class="hidden">
         <h1 id="doc-title">Select or Upload a Document</h1>
         <div id="text-container" onmouseup="handleSelection()">

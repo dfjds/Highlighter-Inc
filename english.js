@@ -280,6 +280,60 @@ function deleteClass(index) {
     }
 }
 
+function buildLeaderboard() {
+    const list = document.getElementById("leaderboard-list");
+    const empty = document.getElementById("leaderboard-empty");
+    if (!list || !empty) return;
+
+    const counts = {};
+
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (!key || !key.startsWith("savedDoc_")) continue;
+
+        try {
+            const raw = localStorage.getItem(key);
+            const docs = JSON.parse(raw);
+            if (!Array.isArray(docs)) continue;
+
+            docs.forEach((doc) => {
+                const comments = Array.isArray(doc.comments) ? doc.comments : [];
+                comments.forEach((comment) => {
+                    const author = comment.author || "Unknown";
+                    counts[author] = (counts[author] || 0) + 1;
+
+                    const replies = Array.isArray(comment.replies) ? comment.replies : [];
+                    replies.forEach((reply) => {
+                        const replyAuthor = reply.author || "Unknown";
+                        counts[replyAuthor] = (counts[replyAuthor] || 0) + 1;
+                    });
+                });
+            });
+        } catch (e) {
+            console.error("Failed to parse annotations for leaderboard", key, e);
+        }
+    }
+
+    const entries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+    list.innerHTML = "";
+
+    if (entries.length === 0) {
+        empty.style.display = "block";
+        return;
+    }
+
+    empty.style.display = "none";
+    entries.slice(0, 10).forEach(([author, count]) => {
+        const li = document.createElement("li");
+        li.textContent = `${author} — ${count}`;
+        li.style.cursor = "pointer";
+        li.onclick = () => {
+            window.location.href = "teacher-upload-view.html";
+        };
+        list.appendChild(li);
+    });
+}
+
 function clearAllData() {
     const currentEmail = localStorage.getItem("loggedInEmail"); //
     
